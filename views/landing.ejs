@@ -15,6 +15,37 @@
         <a href="out"><button id="dog" type="button" class="btn btn-outline-danger btn-lg btn-block">CHECKOUT</button></a>
     </p>   
 </div>
-
-
+<script>
+        $(document).ready(function(){
+        <% if (types == 1) { %>
+            setTimeout(function () {
+                $.notify({
+                    icon: 'fa fa-check',
+                    message: "<%= messages %>"
+                }, {
+                    type: "success",
+                    placement: {
+                        from: 'bottom'
+                    },
+                    delay: 4000
+                });
+            }, 1000);
+            <% } %>
+            <% if (types == 2) { %>
+            console.log('<%= messages %>');
+            setTimeout(function () {
+                $.notify({
+                    icon: 'fa fa-exclamation-triangle',
+                    message: "<%= messages %>"
+                }, {
+                    type: 'danger',
+                    placement: {
+                        from: 'bottom'
+                    },
+                    delay: 4000
+                });
+            }, 1000);
+            <% } %>
+    });
+</script>
 <% include partials/footer %>

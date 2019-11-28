@@ -1,17 +1,21 @@
 //Require all the required packages
 var express = require("express");
+var getJSON = require('get-json');
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var nodemailer = require("nodemailer");
 var unirest = require("unirest");
+const dotenv = require('dotenv');
+dotenv.config();
 //Global variables
-var foundData;
-var findData;
-var address;
+var foundData, findData, address, type=-1,message="";
 
 //Connect to management DB using mongoose
-mongoose.connect("mongodb://localhost/management", {useNewUrlParser: true, useUnifiedTopology: true});
+const uri = process.env.MONGODB;
+// const uri = "mongodb://localhost/management";
+mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
+// console.log(process.env)
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -23,8 +27,8 @@ var transporter = nodemailer.createTransport({
     secure: false,//true
     port: 25,//465
     auth: {
-        user: '',
-        pass: ''
+        user: process.env.EMAIL_ID,
+        pass: process.env.EMAIL_PASS
     }, tls: {
       rejectUnauthorized: false
     }
@@ -44,6 +48,7 @@ var userSchema = new mongoose.Schema({
 
 // Create Model of user Schema
 var user = mongoose.model("user", userSchema);
+console.log(timeNow());
 
 // GET route to render landing page
 app.get('/', function(req, res){
@@ -54,7 +59,10 @@ app.get('/', function(req, res){
         foundData = found;
         }
     });
-    res.render("landing");
+    var xx = type, xxx = message;
+    type=-1;
+    message = "";
+    res.render("landing",{types:xx,messages:xxx});
 });
 
 // POST route to handle checkin form details
@@ -70,8 +78,8 @@ app.post("/", function(req, res){
      foundData = newUser;
      
      // Checking if user already present in database
-     user.find({}, function(err, doc){
-       if(doc.length === 0 || doc[doc.length-1].checkout != undefined)
+     user.find({"email":email,"checkout":null}, function(err, doc){
+       if(doc.length === 0)
        {
          //Store value to database
         user.create(newUser, function(err, newlycreated){
@@ -80,7 +88,7 @@ app.post("/", function(req, res){
           else{
             //Sending mail to host
              var mailOptions = {
-                 from: foundData.email,
+                 from: 'bluepenguin0110@gmail.com',
                  to: foundData.hemail,
                  subject: 'Visitor Details',
                  text: foundData.name + " is here to Visit you "+ "\n" + "Phone Number:- " + foundData.phone + "\n" +" E-mail:- " + foundData.email
@@ -97,7 +105,7 @@ app.post("/", function(req, res){
                var req = unirest("POST", "https://www.fast2sms.com/dev/bulk");
  
             req.headers({
-                   "authorization": ""
+                   "authorization": process.env.TEXT_API
               });
  
          req.form({
@@ -110,18 +118,28 @@ app.post("/", function(req, res){
  
         req.end(function (res) {
           if (res.error) throw new Error(res.error);
- 
-             console.log(res.body);
+              console.log(res.body);
           });
+          type=1;
+          message="Checked-In successfully";
+          console.log(type+message);
           res.redirect("/");
-          } 
-      });   
+          }
+      })
        }
-       else
+       else if(doc.length==1)
        {
          //Print on console if can't checkin
          console.log("Can't Checkin Again");
+         type=2;
+         message="Cannot Checkin Again";
          res.redirect("/");
+       }
+       else{
+          console.log("Database has multiple entries");
+          type=2;
+          message="Cannot Checkin Again";
+          res.redirect("/");
        }
      });
     
@@ -144,8 +162,8 @@ app.post("/out", function(req, res){
     var find = req.body.find;
 
     //find user data with entered email
-    user.find({email:find}, function(err, here){
-      if(here[here.length-1].checkout === undefined)
+    user.find({"email":find,"checkout":null}, function(err, here){
+      if(here.length==1)
       {
         // ADD checkout time to the last email found in DB
         user.findOneAndUpdate({email:find, checkin:here[here.length-1].checkin}, {checkout:time}, function(){
@@ -156,7 +174,7 @@ app.post("/out", function(req, res){
 
           //Send email to user to confirm checkout
           var mailOptions = {
-            from: here[here.length-1].email,
+            from: 'bluepenguin0110@gmail.com',
             to: here[here.length-1].hemail,
             subject: 'CHECKOUT DETAILS',
             text: "NAME: " + here[here.length-1].name + "\n" + " PHONE NO: " +here[here.length-1].phone + "\n" + " CHECKIN-TIME: " + here[here.length-1].checkin + "\n" + " CHECKOUT-TIME " + time + "\n" + " HOST NAME: " + here[here.length-1].hname + "\n" + " ADDRESS: " + address
@@ -165,17 +183,27 @@ app.post("/out", function(req, res){
             if (error) {
               console.log(error);
             } else {
+              console.log(type,message);
               console.log('Email sent: ' + info.response);
             }
           });
       });
-
+      type=1;
+      message="Checked out Successfully";
       res.redirect('/');
       }
-      else
+      else if(here.length==0)
       {
         // Print on terminal if already checked out
         console.log("can't checkout");
+        type=2;
+        message="User not Checked-In";
+        res.redirect('/');
+      }
+      else{  
+        console.log("Checkin is Corrupt");
+        type=2;
+        message="Check-In Left multiple entries";
         res.redirect('/');
       }
     });
@@ -192,7 +220,7 @@ app.get("/data", function(req, res){
       res.send("no data found");
     }
     else{
-      res.render("data", {data:found});
+      res.render("data", {data:found.reverse()});
     }
   
   });
@@ -203,11 +231,21 @@ app.get("/data", function(req, res){
 function timeNow()
 {
     var today = new Date();
-    var time = today.getDate() + "/" + today.getMonth() + "/" + today.getFullYear() + " @ " +  today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    return time;
+    getJSON('http://worldtimeapi.org/api/timezone/Asia/Kolkata.json', function(error, response){
+      if(error){
+        today=today;
+      }
+      else{
+        today = response.datetime;
+        // console.log(response);
+      }
+    });
+    return String(today).substring(0,24);
 }
 
+
+
 // Server Start Listening
-app.listen(3000, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
 console.log("Server has Started");
 });
