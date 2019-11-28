@@ -91,6 +91,9 @@
 2.  Multiple checkout is not possible for a single user in a row.
 3.  User can't submit Checkin/Checkout forms till all the fields are filled and are valid.
 
+![](screenshots/test.png)
+>Cannot click submit button till all the fields are valid.
+
 ## Installation
 1.  Create a folder 'Innovaccer' in your home directory ` mkdir Innovaccer `
 2.  Copy the content of the zip to the folder.
