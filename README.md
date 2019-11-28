@@ -74,6 +74,12 @@
 ![](screenshots/database.png)
 > Database view
 
+## Data-Log
+-  Fetch all the entries from the Database and present in tabular format on '/data' route.
+![](screenshots/datalog.png)
+> Data-log View 
+
+
 ## Dependencies
 ```bash
  express
