@@ -42,10 +42,10 @@
 ![](screenshots/landing.png)
 > Landing page view
 
-## Checkin:-
+## Checkin Implementation:-
 -   When the user clicks on the check-in button the server redirects the user to the check-in form, the user enters his name, email, phone no., host's name, host's email and host's phone no. and clicks on the submit button. The form data is sent to the backend using  'body-parser' package and stored in local variables, then using 'mongoose' a schema is created then the data in the local variables are stored to the database with the data timestamp is also stored as check-in time and the user is checked-in, an sms and an email is sent to host informing about the same. After each check-in, the user is redirected to the landing page of the website.
 
-## Checkout:-
+## Checkout Implementation:-
 -   When the user clicks on the check-out button the server redirects the user to the check-out form then the user enters his email address and host's address and clicks on submit then the form data and the checkout timestamp are send back to local variables updating the database and an email is sent to the user confirming the checkout.
 
 ## Checkin Demo
@@ -94,6 +94,33 @@
 ![](screenshots/test.png)
 >Cannot click submit button till all the fields are valid.
 
+## Email and SMS Setup
+1.  Open app.js file
+2.  Add user name and password in your transporter function.
+
+```
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    secure: false,//true
+    port: 25,//465
+    auth: {
+        user: '',
+        pass: ''
+    }, tls: {
+      rejectUnauthorized: false
+    }
+  });
+```
+
+3. For SMS add Auth.Key in req.headers function in app.js file.
+
+```
+ req.headers({
+          "authorization": ""
+           });
+```
+
+
 ## Installation
 1.  Create a folder 'Innovaccer' in your home directory ` mkdir Innovaccer `
 2.  Copy the content of the zip to the folder.
@@ -102,5 +129,9 @@
 5.  Start your MongoDB Server ` sudo service mongod start `
 6.  Start application: ` node app.js `
 7.  Visit [http://localhost:3000]("http://localhost:3000") to view the application.
+
+## Contact
+-  Author: Amitesh Acharya
+-  Email: amiteshacharya1@gmail.com
 
 
