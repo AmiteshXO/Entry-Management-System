@@ -1,0 +1,44 @@
+<%- include('partials/header') %>
+
+<style>
+    body{
+        background-image: linear-gradient(to right, white, purple);
+    }
+</style>
+
+<div style="padding-top: 100px;" class="container">
+
+        <table class="table table-striped table-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone No.</th>
+                    <th scope="col">Host's Name</th>
+                    <th scope="col">Host's Email</th>
+                    <th scope="col">Host's Phone No.</th>
+                    <th scope="col">Checkin Time</th>
+                    <th scope="col">Checkout Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <% for(var i=0;i<data.length;i++){ %>
+
+                            <tr>
+                                    <td><%= data[i].name %></td>
+                                    <td><%= data[i].email %></td>
+                                    <td><%= data[i].phone %></td>
+                                    <td><%= data[i].hname %></td>
+                                    <td><%= data[i].hemail %></td>
+                                    <td><%= data[i].hphone %></td>
+                                    <td><%= data[i].checkin %></td>
+                                    <td><%= data[i].checkout %></td>
+                                  </tr>
+
+                        <% } %>
+                </tbody>      
+
+</div>
+
+</body>
+</html>

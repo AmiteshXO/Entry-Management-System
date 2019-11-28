@@ -1,0 +1,45 @@
+<% include partials/header %>
+
+<!-- CHECKIN FORM  -->
+
+
+<div class="row">
+    
+    <div style="width: 30%; margin: 25px auto;">
+        <h1 style="text-align: center; color: silver;">Enter Details</h1>
+        <form action="/" method="POST">
+            <div class="form-group">
+                <label style="color: silver;">NAME</label>
+                <input class="form-control" type="text" name="name" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+                <label style="color: silver;">EMAIL</label>
+                <input class="form-control" type="text" name="email" placeholder="Email" id="e1" required>
+            </div>
+            <div class="form-group">
+                <label style="color: silver;">PHONE NUMBER</label>
+                <input class="form-control" type="text" name="phone" placeholder="Phone no." id="e2" required>
+            </div>
+
+
+            <div class="form-group">
+                <label style="color: silver;">HOST NAME</label>
+                <input class="form-control" type="text" name="hname" placeholder="Host Name" required>
+            </div>
+            <div class="form-group">
+                <label style="color: silver;"> HOST EMAIL</label>
+                <input class="form-control" type="text" name="hemail" placeholder="Host Email" id="e3" required>
+            </div>
+            <div class="form-group">
+                <label style="color: silver;">HOST PHONE NUMBER</label>
+                <input class="form-control" type="text" name="hphone" placeholder="Host Phone no." id="e4" required>
+            </div>
+            <div class="form-group">
+                <button id="b1" class="btn btn-lg btn-primary btn-block" disabled=true>SUBMIT</button>
+            </div>
+        </form>
+        <a class="btn btn-large btn-info" href="/">Go Back</a>
+    </div>
+</div>
+
+<% include partials/footer %>
