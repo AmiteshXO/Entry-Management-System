@@ -55,14 +55,14 @@
 
 ## Dependencies
 ```bash
-$ express
-$ body-parser
-$ mongoose
-$ nodemailer
-$ unirest
-$ ejs
-$ email-validator
-$ validate-phone-number-node-js
+ express
+ body-parser
+ mongoose
+ nodemailer
+ unirest
+ ejs
+ email-validator
+ validate-phone-number-node-js
 ```
 
 ## Constraints
