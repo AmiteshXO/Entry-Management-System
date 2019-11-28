@@ -38,6 +38,7 @@
 
 # Approach
 -   First, when the landing page of the website renders, the user has the choice to checkin or checkout.
+
 ![](screenshots/landing.png)
 > Landing page view
 
@@ -48,21 +49,27 @@
 -   When the user clicks on the check-out button the server redirects the user to the check-out form then the user enters his email address and host's address and clicks on submit then the form data and the checkout timestamp are send back to local variables updating the database and an email is sent to the user confirming the checkout.
 
 ## Checkin Demo
+
 ![](screenshots/checkin.png)
 > Checkin form page
 
+
 ![](screenshots/inemail.png)
 > Checkin Email view
+
 
 ![](screenshots/sms.png)
 > SMS view
 
 ## Checkout Demo
+
 ![](screenshots/checkout.png)
 > Checkout form page
 
+
 ![](screenshots/outemail.png)
 > Checkout email view
+
 
 ![](screenshots/database.png)
 > Database view
