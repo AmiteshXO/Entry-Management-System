@@ -1,6 +1,6 @@
 # Entry Management System
 
-## Entry Management System Working [Click here](" ")
+## Assignment for SDE-Intern at Innovaccer
 
 ### Prerequisites
 -   Nodejs v8.10.0
