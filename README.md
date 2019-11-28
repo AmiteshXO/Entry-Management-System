@@ -38,6 +38,8 @@
 
 # Approach
 -   First, when the landing page of the website renders, the user has the choice to checkin or checkout.
+![](screenshots/landing.png)
+> Landing page view
 
 ## Checkin:-
 -   When the user clicks on the check-in button the server redirects the user to the check-in form, the user enters his name, email, phone no., host's name, host's email and host's phone no. and clicks on the submit button. The form data is sent to the backend using  'body-parser' package and stored in local variables, then using 'mongoose' a schema is created then the data in the local variables are stored to the database with the data timestamp is also stored as check-in time and the user is checked-in, an sms and an email is sent to host informing about the same. After each check-in, the user is redirected to the landing page of the website.
@@ -49,9 +51,21 @@
 ![](screenshots/checkin.png)
 > Checkin form page
 
+![](screenshots/inemail.png)
+> Checkin Email view
+
+![](screenshots/sms.png)
+> SMS view
+
 ## Checkout Demo
 ![](screenshots/checkout.png)
 > Checkout form page
+
+![](screenshots/outemail.png)
+> Checkout email view
+
+![](screenshots/database.png)
+> Database view
 
 ## Dependencies
 ```bash
