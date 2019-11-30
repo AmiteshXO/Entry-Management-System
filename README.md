@@ -8,6 +8,7 @@
 -   HTML5, CSS3, Javascript
 -   A Gmail Account
 -   Fast2sms API and Secret Key
+-   World Time API
 
 ## Technology Stack
 
@@ -90,6 +91,8 @@
  ejs
  email-validator
  validate-phone-number-node-js
+ dotenv
+ get-json
 ```
 
 ## Constraints
@@ -100,34 +103,25 @@
 ![](screenshots/test.png)
 >Cannot click submit button till all the fields are valid.
 
-## Email and SMS Setup
-1.  Open app.js file
-2.  Add user name and password in your transporter function.
+## Setup Enviroment Variables
+-   Setup Enviroment Variables to connect to database and to send Email and SMS.
+
+1.  Create a `.env` file in your Project folder and fill the following details:-
 
 ```
-var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    secure: false,//true
-    port: 25,//465
-    auth: {
-        user: '',
-        pass: ''
-    }, tls: {
-      rejectUnauthorized: false
-    }
-  });
+PORT=
+IP=localhost
+MONGODB=mongodb://localhost/
+EMAIL_ID=
+EMAIL_PASS=
+TEXT_API=
 ```
 
-3. For SMS add Auth.Key in req.headers function in app.js file.
-
-```
- req.headers({
-          "authorization": ""
-           });
-```
+2. Fill an empty port number, a database name after 'localhost/', email_id and password of a    gmail account to sent email and free2sms DEV-API Secret Key to sent SMS.
 
 
-## Installation
+
+## Installation for Local-Systems
 1.  Create a folder 'Innovaccer' in your home directory ` mkdir Innovaccer `
 2.  Copy the content of the zip to the folder.
 3.  Enter the folder: ` cd Innovaccer `
