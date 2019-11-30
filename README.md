@@ -101,7 +101,13 @@
 3.  User can't submit Checkin/Checkout forms till all the fields are filled and are valid.
 
 ![](screenshots/test.png)
->Cannot click submit button till all the fields are valid.
+> Cannot click submit button till all the fields are valid.
+
+![](screenshots/inerr.png)
+> Cannot checkin until the user has not checked out.
+
+![](screenshots/outerr.png)
+> Cannot checkout if already checked out.
 
 ## Setup Enviroment Variables
 -   Setup Enviroment Variables to connect to database and to send Email and SMS.
