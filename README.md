@@ -10,6 +10,10 @@
 -   Fast2sms API and Secret Key
 -   World Time API
 
+### Deployment
+
+The website has been hosted on Heroku and can be easily accessed [here](https://pure-savannah-87720.herokuapp.com/).
+
 ## Technology Stack
 
 #### Frontend
